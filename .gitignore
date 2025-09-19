@@ -1,0 +1,20 @@
+# Flutter
+frontend/.dart_tool/
+frontend/build/
+frontend/ios/Pods/
+frontend/pubspec.lock
+
+# Android/iOS
+frontend/android/.gradle/
+frontend/android/local.properties
+frontend/android/app/release/
+frontend/ios/DerivedData/
+
+# Python
+backend/.venv/
+backend/__pycache__/
+backend/*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
