@@ -2,8 +2,10 @@
   "zones": [
     {
       "id": "centro-storico-diurna",
+      "zone_id": "centro-storico-diurna",
+      "city_id": "rome",
       "name": "ZTL Centro Storico diurna",
-      "city": "Roma",
+      "city": "Rome",
       "type": "daytime",
       "timezone": "Europe/Rome",
       "human_readable_it": "Lun-ven 06:30-18:00, sab 14:00-18:00, esclusi i festivi.",
@@ -38,27 +40,33 @@
         "electric_vehicle_note": "Electric and hydrogen vehicles may access after plate registration until 2026-06-30. Rules change from 2026-07-01.",
         "motorcycles_note": "Motorcycles and mopeds have free access, except Tridente A1."
       },
-      "geometry": {},
+      "map_style": {
+        "fill_color_key": "rome_day",
+        "stroke_color_key": "rome_day_stroke",
+        "priority": 1,
+        "visible_by_default": true
+      },
+      "geometry": {
+        "quality": "missing"
+      },
       "sources": [
         {
           "title": "ZTL in Centro",
           "url": "https://romamobilita.it/muoversi-a-roma/ztl-in-centro/",
           "publisher": "Roma Servizi per la Mobilità",
-          "last_verified": "2026-05-12"
-        },
-        {
-          "title": "Servizi ZTL",
-          "url": "https://romamobilita.it/it/servizi/ztl",
-          "publisher": "Roma Servizi per la Mobilità",
-          "last_verified": "2026-05-12"
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
         }
       ],
       "disclaimer": "Official rules may change. Check Roma Mobilità before entering."
     },
     {
       "id": "centro-storico-notturna",
+      "zone_id": "centro-storico-notturna",
+      "city_id": "rome",
       "name": "ZTL Centro Storico notturna",
-      "city": "Roma",
+      "city": "Rome",
       "type": "nighttime",
       "timezone": "Europe/Rome",
       "human_readable_it": "Ven-sab 23:00-03:00, esclusi i festivi. Non attiva ad agosto.",
@@ -84,30 +92,45 @@
         "electric_vehicle_note": "Electric and hydrogen vehicles may access after plate registration until 2026-06-30. Rules change from 2026-07-01.",
         "motorcycles_note": "Motorcycles and mopeds have free access, except Tridente A1."
       },
+      "map_style": {
+        "fill_color_key": "rome_night",
+        "stroke_color_key": "rome_night_stroke",
+        "priority": 5,
+        "visible_by_default": true
+      },
       "geometry": {
         "area_file": "rome_ztl_centro_notturna_area.json",
-        "gates_file": "rome_ztl_centro_notturna_varchi.json"
+        "gates_file": "rome_ztl_centro_notturna_varchi.json",
+        "geometry_source": "Repository GeoJSON sourced for Centro Storico Notturna.",
+        "last_verified": "2026-05-12",
+        "quality": "official"
       },
       "sources": [
         {
           "title": "ZTL in Centro",
           "url": "https://romamobilita.it/muoversi-a-roma/ztl-in-centro/",
           "publisher": "Roma Servizi per la Mobilità",
-          "last_verified": "2026-05-12"
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
         },
         {
           "title": "Summer 2026 night ZTL notice",
           "url": "https://romamobilita.it/infomobilita/ztl-notturne-trastevere-e-san-lorenzo-venerdi-1-maggio-scatta-la-chiusura-estiva/",
           "publisher": "Roma Servizi per la Mobilità",
-          "last_verified": "2026-05-12"
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
         }
       ],
       "disclaimer": "Official rules may change. Check Roma Mobilità before entering."
     },
     {
       "id": "tridente-a1",
+      "zone_id": "tridente-a1",
+      "city_id": "rome",
       "name": "ZTL Tridente A1",
-      "city": "Roma",
+      "city": "Rome",
       "type": "daytime",
       "timezone": "Europe/Rome",
       "human_readable_it": "Lun-ven 06:30-19:00, sab 10:00-19:00, esclusi i festivi.",
@@ -140,29 +163,43 @@
         "known_exemptions": ["Taxi", "NCC", "Permitted resident and category holders."],
         "disabled_permit_note": "People with disability permits may circulate in all ZTLs according to Roma Mobilità rules.",
         "electric_vehicle_note": "Electric motorcycles and mopeds may access after plate registration. General EV rules change from 2026-07-01.",
-        "motorcycles_note": "Motorcycles, mopeds, and minicar are not freely admitted in A1. Access is limited to categories entitled to an A1 permit, with extra official rules for repairs and registration."
+        "motorcycles_note": "Motorcycles, mopeds, and minicar are not freely admitted in A1."
       },
-      "geometry": {},
+      "map_style": {
+        "fill_color_key": "rome_tridente",
+        "stroke_color_key": "rome_tridente_stroke",
+        "priority": 4,
+        "visible_by_default": true
+      },
+      "geometry": {
+        "quality": "missing"
+      },
       "sources": [
         {
           "title": "ZTL in Centro",
           "url": "https://romamobilita.it/muoversi-a-roma/ztl-in-centro/",
           "publisher": "Roma Servizi per la Mobilità",
-          "last_verified": "2026-05-12"
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
         },
         {
           "title": "Moto e motocicli in ZTL Tridente A1",
           "url": "https://romamobilita.it/servizi-al-pubblico/moto-e-motocicli-in-ztl-tridente-a1/",
           "publisher": "Roma Servizi per la Mobilità",
-          "last_verified": "2026-05-12"
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
         }
       ],
       "disclaimer": "Official rules may change. Check Roma Mobilità before entering."
     },
     {
       "id": "trastevere-diurna",
+      "zone_id": "trastevere-diurna",
+      "city_id": "rome",
       "name": "ZTL Trastevere diurna",
-      "city": "Roma",
+      "city": "Rome",
       "type": "daytime",
       "timezone": "Europe/Rome",
       "human_readable_it": "Lun-sab 06:30-10:00, esclusi i festivi.",
@@ -187,25 +224,37 @@
         "electric_vehicle_note": "Electric and hydrogen vehicles may access after plate registration until 2026-06-30. Rules change from 2026-07-01.",
         "motorcycles_note": "Motorcycles and mopeds have free access, except Tridente A1."
       },
-      "geometry": {},
+      "map_style": {
+        "fill_color_key": "rome_day",
+        "stroke_color_key": "rome_day_stroke",
+        "priority": 1,
+        "visible_by_default": true
+      },
+      "geometry": {
+        "quality": "missing"
+      },
       "sources": [
         {
           "title": "ZTL in Centro",
           "url": "https://romamobilita.it/muoversi-a-roma/ztl-in-centro/",
           "publisher": "Roma Servizi per la Mobilità",
-          "last_verified": "2026-05-12"
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
         }
       ],
       "disclaimer": "Official rules may change. Check Roma Mobilità before entering."
     },
     {
       "id": "trastevere-notturna",
+      "zone_id": "trastevere-notturna",
+      "city_id": "rome",
       "name": "ZTL Trastevere notturna",
-      "city": "Roma",
+      "city": "Rome",
       "type": "nighttime",
       "timezone": "Europe/Rome",
-      "human_readable_it": "Ven-sab 21:30-03:00 tutto l'anno; da maggio a ottobre anche mer-gio. Attiva anche se festivi. Non attiva ad agosto.",
-      "human_readable_en": "Fri-Sat 21:30-03:00 year-round; Wed-Thu too from May to October. Operates even on holidays. Not active in August.",
+      "human_readable_it": "Ven-sab 21:30-03:00 tutto l'anno; da maggio a ottobre anche mer-gio. Non attiva ad agosto.",
+      "human_readable_en": "Fri-Sat 21:30-03:00 year-round; Wed-Thu too from May to October. Not active in August.",
       "rules": [
         {
           "id": "winter-friday-saturday",
@@ -238,31 +287,45 @@
         "electric_vehicle_note": "Electric and hydrogen vehicles may access after plate registration until 2026-06-30. Rules change from 2026-07-01.",
         "motorcycles_note": "Motorcycles and mopeds have free access, except Tridente A1."
       },
-      "geometry": {},
+      "map_style": {
+        "fill_color_key": "rome_night",
+        "stroke_color_key": "rome_night_stroke",
+        "priority": 3,
+        "visible_by_default": true
+      },
+      "geometry": {
+        "quality": "missing"
+      },
       "sources": [
         {
           "title": "ZTL in Centro",
           "url": "https://romamobilita.it/muoversi-a-roma/ztl-in-centro/",
           "publisher": "Roma Servizi per la Mobilità",
-          "last_verified": "2026-05-12"
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
         },
         {
           "title": "Summer 2026 night ZTL notice",
           "url": "https://romamobilita.it/infomobilita/ztl-notturne-trastevere-e-san-lorenzo-venerdi-1-maggio-scatta-la-chiusura-estiva/",
           "publisher": "Roma Servizi per la Mobilità",
-          "last_verified": "2026-05-12"
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
         }
       ],
       "disclaimer": "Official rules may change. Check Roma Mobilità before entering."
     },
     {
       "id": "san-lorenzo-notturna",
+      "zone_id": "san-lorenzo-notturna",
+      "city_id": "rome",
       "name": "ZTL San Lorenzo notturna",
-      "city": "Roma",
+      "city": "Rome",
       "type": "nighttime",
       "timezone": "Europe/Rome",
-      "human_readable_it": "Ven-sab 21:30-03:00 tutto l'anno; da maggio a ottobre anche mer-gio. Attiva anche se festivi. Non attiva ad agosto.",
-      "human_readable_en": "Fri-Sat 21:30-03:00 year-round; Wed-Thu too from May to October. Operates even on holidays. Not active in August.",
+      "human_readable_it": "Ven-sab 21:30-03:00 tutto l'anno; da maggio a ottobre anche mer-gio. Non attiva ad agosto.",
+      "human_readable_en": "Fri-Sat 21:30-03:00 year-round; Wed-Thu too from May to October. Not active in August.",
       "rules": [
         {
           "id": "winter-friday-saturday",
@@ -295,27 +358,41 @@
         "electric_vehicle_note": "Electric and hydrogen vehicles may access after plate registration until 2026-06-30. Rules change from 2026-07-01.",
         "motorcycles_note": "Motorcycles and mopeds have free access, except Tridente A1."
       },
-      "geometry": {},
+      "map_style": {
+        "fill_color_key": "rome_night",
+        "stroke_color_key": "rome_night_stroke",
+        "priority": 3,
+        "visible_by_default": true
+      },
+      "geometry": {
+        "quality": "missing"
+      },
       "sources": [
         {
           "title": "ZTL in Centro",
           "url": "https://romamobilita.it/muoversi-a-roma/ztl-in-centro/",
           "publisher": "Roma Servizi per la Mobilità",
-          "last_verified": "2026-05-12"
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
         },
         {
           "title": "Summer 2026 night ZTL notice",
           "url": "https://romamobilita.it/infomobilita/ztl-notturne-trastevere-e-san-lorenzo-venerdi-1-maggio-scatta-la-chiusura-estiva/",
           "publisher": "Roma Servizi per la Mobilità",
-          "last_verified": "2026-05-12"
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
         }
       ],
       "disclaimer": "Official rules may change. Check Roma Mobilità before entering."
     },
     {
       "id": "testaccio-notturna",
+      "zone_id": "testaccio-notturna",
+      "city_id": "rome",
       "name": "ZTL Testaccio notturna",
-      "city": "Roma",
+      "city": "Rome",
       "type": "nighttime",
       "timezone": "Europe/Rome",
       "human_readable_it": "Ven-sab 23:00-03:00, esclusi i festivi. Non attiva ad agosto.",
@@ -341,19 +418,31 @@
         "electric_vehicle_note": "Electric and hydrogen vehicles may access after plate registration until 2026-06-30. Rules change from 2026-07-01.",
         "motorcycles_note": "Motorcycles and mopeds have free access, except Tridente A1."
       },
-      "geometry": {},
+      "map_style": {
+        "fill_color_key": "rome_night",
+        "stroke_color_key": "rome_night_stroke",
+        "priority": 2,
+        "visible_by_default": true
+      },
+      "geometry": {
+        "quality": "missing"
+      },
       "sources": [
         {
           "title": "ZTL in Centro",
           "url": "https://romamobilita.it/muoversi-a-roma/ztl-in-centro/",
           "publisher": "Roma Servizi per la Mobilità",
-          "last_verified": "2026-05-12"
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
         },
         {
           "title": "ZTL Testaccio",
           "url": "https://romamobilita.it/servizi-al-pubblico/ztl-testaccio/",
           "publisher": "Roma Servizi per la Mobilità",
-          "last_verified": "2026-05-12"
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
         }
       ],
       "disclaimer": "Official rules may change. Check Roma Mobilità before entering."

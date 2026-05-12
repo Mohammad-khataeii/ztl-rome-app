@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class LoadingState extends StatelessWidget {
   const LoadingState({
     super.key,
-    this.message = 'Loading Rome ZTL data...',
+    this.message = 'Loading ZTL data...',
   });
 
   final String message;

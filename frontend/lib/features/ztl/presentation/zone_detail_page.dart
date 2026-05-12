@@ -30,12 +30,18 @@ class _ZoneDetailPageState extends State<ZoneDetailPage> {
   @override
   void initState() {
     super.initState();
-    _bundleFuture = widget.repository.loadZoneBundle(widget.initialZone.id);
+    _bundleFuture = widget.repository.loadZoneBundle(
+      widget.initialZone.cityId,
+      widget.initialZone.zoneId,
+    );
   }
 
   Future<void> _reload() async {
     setState(() {
-      _bundleFuture = widget.repository.loadZoneBundle(widget.initialZone.id);
+      _bundleFuture = widget.repository.loadZoneBundle(
+        widget.initialZone.cityId,
+        widget.initialZone.zoneId,
+      );
     });
     await _bundleFuture;
   }

@@ -65,6 +65,6 @@ class ZoneCard extends StatelessWidget {
     if (zone.currentStatus.confidence == 'missing_data') {
       return 'Some official data is missing.';
     }
-    return 'Official rules may change. Check Roma Mobilità before entering.';
+    return 'Official rules may change. Check the official city source before entering.';
   }
 }

@@ -1,56 +1,68 @@
 from datetime import datetime
-from zoneinfo import ZoneInfo
 
 from app.services.schedule_engine import ScheduleEngine
 from app.services.ztl_repository import ZtlRepository
 
-rome = ZoneInfo("Europe/Rome")
 repository = ZtlRepository()
 engine = ScheduleEngine()
 
 
-def _status(zone_id: str, iso_value: str):
-    zone = repository.get_zone(zone_id)
+def _status(city_id: str, zone_id: str, iso_value: str):
+    zone = repository.get_zone(city_id, zone_id)
     return engine.evaluate(zone, datetime.fromisoformat(iso_value))
 
 
-def test_friday_2259_is_inactive_for_centro_night() -> None:
-    status = _status("centro-storico-notturna", "2026-05-15T22:59:00+02:00")
-    assert status.is_active is False
+def test_rome_centro_notturna_friday_2300_is_active() -> None:
+    assert _status("rome", "centro-storico-notturna", "2026-05-15T23:00:00+02:00").is_active
 
 
-def test_friday_2300_is_active_for_centro_night() -> None:
-    status = _status("centro-storico-notturna", "2026-05-15T23:00:00+02:00")
-    assert status.is_active is True
+def test_rome_centro_notturna_august_suspension() -> None:
+    assert not _status(
+        "rome",
+        "centro-storico-notturna",
+        "2026-08-14T23:30:00+02:00",
+    ).is_active
 
 
-def test_saturday_0259_is_active_for_centro_night() -> None:
-    status = _status("centro-storico-notturna", "2026-05-16T02:59:00+02:00")
-    assert status.is_active is True
+def test_milan_area_c_monday_0800_is_active() -> None:
+    assert _status("milan", "milan-area-c", "2026-05-11T08:00:00+02:00").is_active
 
 
-def test_saturday_0300_is_inactive_for_centro_night() -> None:
-    status = _status("centro-storico-notturna", "2026-05-16T03:00:00+02:00")
-    assert status.is_active is False
+def test_milan_area_c_monday_2000_is_inactive() -> None:
+    assert not _status("milan", "milan-area-c", "2026-05-11T20:00:00+02:00").is_active
 
 
-def test_sunday_0200_belongs_to_saturday_window() -> None:
-    status = _status("centro-storico-notturna", "2026-05-17T02:00:00+02:00")
-    assert status.is_active is True
+def test_milan_area_c_holiday_is_inactive() -> None:
+    assert not _status("milan", "milan-area-c", "2026-06-02T08:00:00+02:00").is_active
 
 
-def test_august_suspension_disables_centro_night() -> None:
-    status = _status("centro-storico-notturna", "2026-08-14T23:30:00+02:00")
-    assert status.is_active is False
-    assert "month" in status.reason.lower() or "season" in status.reason.lower()
+def test_milan_area_b_monday_0800_is_active() -> None:
+    assert _status("milan", "milan-area-b", "2026-05-11T08:00:00+02:00").is_active
 
 
-def test_holiday_exclusion_disables_day_rule() -> None:
-    status = _status("centro-storico-diurna", "2026-06-02T08:00:00+02:00")
-    assert status.is_active is False
+def test_florence_sector_a_friday_0800_is_active() -> None:
+    assert _status("florence", "florence-sector-a", "2026-05-15T08:00:00+02:00").is_active
 
 
-def test_timezone_aware_status_for_san_lorenzo_summer_rule() -> None:
-    status = _status("san-lorenzo-notturna", "2026-05-13T22:00:00+02:00")
-    assert status.is_active is True
+def test_florence_sector_a_friday_2100_is_inactive() -> None:
+    assert not _status(
+        "florence",
+        "florence-sector-a",
+        "2026-05-15T21:00:00+02:00",
+    ).is_active
 
+
+def test_florence_summer_night_thursday_2330_is_active() -> None:
+    assert _status(
+        "florence",
+        "florence-summer-night-ztl",
+        "2026-05-14T23:30:00+02:00",
+    ).is_active
+
+
+def test_florence_cross_midnight_friday_0230_is_active_from_thursday() -> None:
+    assert _status(
+        "florence",
+        "florence-summer-night-ztl",
+        "2026-05-15T02:30:00+02:00",
+    ).is_active

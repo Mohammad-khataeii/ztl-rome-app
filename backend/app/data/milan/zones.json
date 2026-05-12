@@ -1,0 +1,118 @@
+{
+  "zones": [
+    {
+      "id": "milan-area-c",
+      "zone_id": "milan-area-c",
+      "city_id": "milan",
+      "name": "Area C",
+      "city": "Milan",
+      "type": "paid_access",
+      "timezone": "Europe/Rome",
+      "human_readable_it": "Lun-ven 07:30-19:30, festivi esclusi.",
+      "human_readable_en": "Mon-Fri 07:30-19:30, excluding public holidays.",
+      "rules": [
+        {
+          "id": "weekday",
+          "label_it": "Lun-ven 07:30-19:30",
+          "label_en": "Mon-Fri 07:30-19:30",
+          "weekdays": [0, 1, 2, 3, 4],
+          "start_time": "07:30:00",
+          "end_time": "19:30:00",
+          "holiday_policy": "exclude",
+          "source_titles": ["Area C", "Area C gates and boundaries"]
+        }
+      ],
+      "exclusions": ["Italian public holidays."],
+      "restrictions": {
+        "vehicle_classes": ["automobili", "motoveicoli", "veicoli commerciali"],
+        "known_exemptions": ["Official Comune di Milano deroghe and admitted categories."],
+        "disabled_permit_note": "Check Comune di Milano rules for disability permits and specific exemptions.",
+        "electric_vehicle_note": "Check the official Area C eligibility service before entering.",
+        "motorcycles_note": "Check the official Area C page for vehicle-class-specific rules."
+      },
+      "map_style": {
+        "fill_color_key": "milan_area_c",
+        "stroke_color_key": "milan_area_c_stroke",
+        "priority": 5,
+        "visible_by_default": true
+      },
+      "geometry": {
+        "geometry_source": "Official boundary/gates page references maps and 43 electronic gates, but verified repository geometry is not currently bundled.",
+        "last_verified": "2026-05-12",
+        "quality": "missing"
+      },
+      "sources": [
+        {
+          "title": "Area C",
+          "url": "https://www.comune.milano.it/argomenti/mobilita/area-c",
+          "publisher": "Comune di Milano",
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
+        },
+        {
+          "title": "Area C gates and boundaries",
+          "url": "https://servizicrm.comune.milano.it/centro-supporto/KA-01472/",
+          "publisher": "Comune di Milano",
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
+        }
+      ],
+      "disclaimer": "Official rules may change. Check Comune di Milano before entering."
+    },
+    {
+      "id": "milan-area-b",
+      "zone_id": "milan-area-b",
+      "city_id": "milan",
+      "name": "Area B",
+      "city": "Milan",
+      "type": "environmental",
+      "timezone": "Europe/Rome",
+      "human_readable_it": "Lun-ven 07:30-19:30, festivi esclusi.",
+      "human_readable_en": "Mon-Fri 07:30-19:30, excluding public holidays.",
+      "rules": [
+        {
+          "id": "weekday",
+          "label_it": "Lun-ven 07:30-19:30",
+          "label_en": "Mon-Fri 07:30-19:30",
+          "weekdays": [0, 1, 2, 3, 4],
+          "start_time": "07:30:00",
+          "end_time": "19:30:00",
+          "holiday_policy": "exclude",
+          "source_titles": ["Area B"]
+        }
+      ],
+      "exclusions": ["Italian public holidays."],
+      "restrictions": {
+        "vehicle_classes": ["veicoli più inquinanti", "veicoli merci >12m", "merci pericolose"],
+        "known_exemptions": ["Official deroghe and admitted categories published by Comune di Milano."],
+        "disabled_permit_note": "Check Comune di Milano rules for disability permits and specific exemptions.",
+        "electric_vehicle_note": "No payment is required for admitted vehicles. Verify eligibility on the official service.",
+        "motorcycles_note": "Motorcycles and mopeds have phased environmental restrictions. Verify official dates and vehicle class rules."
+      },
+      "map_style": {
+        "fill_color_key": "milan_area_b",
+        "stroke_color_key": "milan_area_b_stroke",
+        "priority": 4,
+        "visible_by_default": true
+      },
+      "geometry": {
+        "geometry_source": "Official page references an interactive map, but verified repository geometry is not currently bundled.",
+        "last_verified": "2026-05-12",
+        "quality": "missing"
+      },
+      "sources": [
+        {
+          "title": "Area B",
+          "url": "https://www.comune.milano.it/argomenti/mobilita/area-b",
+          "publisher": "Comune di Milano",
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
+        }
+      ],
+      "disclaimer": "Official rules may change. Check Comune di Milano before entering."
+    }
+  ]
+}

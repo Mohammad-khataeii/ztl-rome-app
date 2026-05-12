@@ -1,0 +1,61 @@
+{
+  "cities": [
+    {
+      "id": "rome",
+      "name": "Rome",
+      "country": "Italy",
+      "timezone": "Europe/Rome",
+      "center": {
+        "latitude": 41.9028,
+        "longitude": 12.4964
+      },
+      "default_zoom": 12,
+      "enabled": true,
+      "supported_status": "partial",
+      "source_summary": "Roma Mobilità official ZTL pages.",
+      "last_verified": "2026-05-12",
+      "geometry_status": {
+        "has_any_geometry": true,
+        "missing_geometry_reason": "Only Centro Storico Notturna geometry is currently available."
+      }
+    },
+    {
+      "id": "milan",
+      "name": "Milan",
+      "country": "Italy",
+      "timezone": "Europe/Rome",
+      "center": {
+        "latitude": 45.4642,
+        "longitude": 9.19
+      },
+      "default_zoom": 11,
+      "enabled": true,
+      "supported_status": "schedule_only",
+      "source_summary": "Comune di Milano Area C and Area B official pages.",
+      "last_verified": "2026-05-12",
+      "geometry_status": {
+        "has_any_geometry": false,
+        "missing_geometry_reason": "Official/open repository geometry is not currently shipped."
+      }
+    },
+    {
+      "id": "florence",
+      "name": "Florence",
+      "country": "Italy",
+      "timezone": "Europe/Rome",
+      "center": {
+        "latitude": 43.7696,
+        "longitude": 11.2558
+      },
+      "default_zoom": 12,
+      "enabled": true,
+      "supported_status": "schedule_only",
+      "source_summary": "Comune di Firenze mobility ZTL page.",
+      "last_verified": "2026-05-12",
+      "geometry_status": {
+        "has_any_geometry": false,
+        "missing_geometry_reason": "Official/open repository geometry is not currently shipped."
+      }
+    }
+  ]
+}

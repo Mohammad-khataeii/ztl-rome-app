@@ -6,7 +6,7 @@ class SourceDisclaimer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Rules can change. Always check Roma Mobilità before entering a ZTL.',
+      'Official rules may change. Check the official city source before entering.',
       style: Theme.of(context).textTheme.bodySmall?.copyWith(
             color: const Color(0xFF5D655F),
           ),

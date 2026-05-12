@@ -31,12 +31,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _zonesFuture = widget.repository.loadZones();
+    _zonesFuture = widget.repository.loadZones('rome');
   }
 
   Future<void> _reload() async {
     setState(() {
-      _zonesFuture = widget.repository.loadZones();
+      _zonesFuture = widget.repository.loadZones('rome');
     });
     await _zonesFuture;
   }
@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ZTL Rome'),
+        title: const Text('ZTL Italy'),
         actions: [
           IconButton(
             tooltip: 'Refresh',
@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
 
           if (snapshot.hasError) {
             return ErrorState(
-              title: 'Couldn’t load Rome ZTL data',
+              title: 'Couldn’t load ZTL data',
               message: 'Check your connection or API setup and try again.',
               actionLabel: 'Retry',
               onAction: () {

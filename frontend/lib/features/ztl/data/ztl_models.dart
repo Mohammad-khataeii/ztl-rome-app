@@ -1,6 +1,8 @@
 class ZtlZone {
   const ZtlZone({
     required this.id,
+    required this.zoneId,
+    required this.cityId,
     required this.name,
     required this.city,
     required this.type,
@@ -8,12 +10,15 @@ class ZtlZone {
     required this.currentStatus,
     required this.schedule,
     required this.restrictions,
+    required this.mapStyle,
     required this.geometry,
     required this.sources,
     required this.disclaimer,
   });
 
   final String id;
+  final String zoneId;
+  final String cityId;
   final String name;
   final String city;
   final String type;
@@ -21,6 +26,7 @@ class ZtlZone {
   final ZoneCurrentStatus currentStatus;
   final ZoneSchedule schedule;
   final ZoneRestrictions restrictions;
+  final ZoneMapStyle mapStyle;
   final ZoneGeometry geometry;
   final List<ZoneSource> sources;
   final String disclaimer;
@@ -28,8 +34,10 @@ class ZtlZone {
   factory ZtlZone.fromJson(Map<String, dynamic> json) {
     return ZtlZone(
       id: json['id'] as String? ?? 'unknown-zone',
+      zoneId: json['zoneId'] as String? ?? json['id'] as String? ?? 'unknown-zone',
+      cityId: json['cityId'] as String? ?? 'rome',
       name: json['name'] as String? ?? 'Unknown zone',
-      city: json['city'] as String? ?? 'Roma',
+      city: json['city'] as String? ?? 'Unknown city',
       type: json['type'] as String? ?? 'unknown',
       timezone: json['timezone'] as String? ?? 'Europe/Rome',
       currentStatus: ZoneCurrentStatus.fromJson(
@@ -41,6 +49,9 @@ class ZtlZone {
       restrictions: ZoneRestrictions.fromJson(
         json['restrictions'] as Map<String, dynamic>? ?? const {},
       ),
+      mapStyle: ZoneMapStyle.fromJson(
+        json['mapStyle'] as Map<String, dynamic>? ?? const {},
+      ),
       geometry: ZoneGeometry.fromJson(
         json['geometry'] as Map<String, dynamic>? ?? const {},
       ),
@@ -49,7 +60,7 @@ class ZtlZone {
           .map(ZoneSource.fromJson)
           .toList(),
       disclaimer: json['disclaimer'] as String? ??
-          'Official rules may change. Check Roma Mobilità before entering.',
+          'Official rules may change. Check the official city source before entering.',
     );
   }
 }
@@ -116,10 +127,6 @@ class ZoneScheduleRule {
     required this.weekdays,
     required this.startTime,
     required this.endTime,
-    required this.holidayPolicy,
-    required this.activeMonths,
-    required this.excludedMonths,
-    required this.sourceTitles,
   });
 
   final String id;
@@ -128,10 +135,6 @@ class ZoneScheduleRule {
   final List<int> weekdays;
   final String startTime;
   final String endTime;
-  final String holidayPolicy;
-  final List<int>? activeMonths;
-  final List<int> excludedMonths;
-  final List<String> sourceTitles;
 
   factory ZoneScheduleRule.fromJson(Map<String, dynamic> json) {
     return ZoneScheduleRule(
@@ -144,18 +147,6 @@ class ZoneScheduleRule {
           .toList(),
       startTime: json['startTime'] as String? ?? '',
       endTime: json['endTime'] as String? ?? '',
-      holidayPolicy: json['holidayPolicy'] as String? ?? 'include',
-      activeMonths: ((json['activeMonths'] as List<dynamic>?) ?? const [])
-          .whereType<num>()
-          .map((item) => item.toInt())
-          .toList(),
-      excludedMonths: ((json['excludedMonths'] as List<dynamic>?) ?? const [])
-          .whereType<num>()
-          .map((item) => item.toInt())
-          .toList(),
-      sourceTitles: ((json['sourceTitles'] as List<dynamic>?) ?? const [])
-          .whereType<String>()
-          .toList(),
     );
   }
 }
@@ -191,12 +182,36 @@ class ZoneRestrictions {
   }
 }
 
+class ZoneMapStyle {
+  const ZoneMapStyle({
+    required this.fillColorKey,
+    required this.strokeColorKey,
+    required this.priority,
+    required this.visibleByDefault,
+  });
+
+  final String fillColorKey;
+  final String strokeColorKey;
+  final int priority;
+  final bool visibleByDefault;
+
+  factory ZoneMapStyle.fromJson(Map<String, dynamic> json) {
+    return ZoneMapStyle(
+      fillColorKey: json['fillColorKey'] as String? ?? 'default_fill',
+      strokeColorKey: json['strokeColorKey'] as String? ?? 'default_stroke',
+      priority: (json['priority'] as num?)?.toInt() ?? 0,
+      visibleByDefault: json['visibleByDefault'] as bool? ?? true,
+    );
+  }
+}
+
 class ZoneGeometry {
   const ZoneGeometry({
     required this.hasArea,
     required this.hasGates,
     required this.areaEndpoint,
     required this.gatesEndpoint,
+    required this.quality,
     required this.bounds,
   });
 
@@ -204,6 +219,7 @@ class ZoneGeometry {
   final bool hasGates;
   final String? areaEndpoint;
   final String? gatesEndpoint;
+  final String quality;
   final GeoBounds? bounds;
 
   bool get hasAnyGeometry => hasArea || hasGates;
@@ -214,6 +230,7 @@ class ZoneGeometry {
       hasGates: json['hasGates'] as bool? ?? false,
       areaEndpoint: json['areaEndpoint'] as String?,
       gatesEndpoint: json['gatesEndpoint'] as String?,
+      quality: json['quality'] as String? ?? 'missing',
       bounds: json['bounds'] is Map<String, dynamic>
           ? GeoBounds.fromJson(json['bounds'] as Map<String, dynamic>)
           : null,
@@ -306,8 +323,8 @@ class GeoJsonFeatureCollection {
   List<GateFeature> toGateFeatures() {
     return features
         .where((feature) => feature.geometryType == 'Point')
-        .map((feature) => GateFeature.fromFeature(feature))
-        .toList();
+        .map(GateFeature.fromFeature)
+        .toList(growable: false);
   }
 }
 
@@ -339,26 +356,25 @@ class GeoJsonFeature {
       return _polygonRings(coordinates);
     }
     if (geometryType == 'MultiPolygon') {
-      final polygons = (coordinates as List<dynamic>? ?? const []);
-      return polygons
+      return (coordinates as List<dynamic>? ?? const [])
           .whereType<List<dynamic>>()
-          .expand((polygon) => _polygonRings(polygon))
+          .expand(_polygonRings)
           .toList();
     }
     return const [];
   }
 
-  List<List<GeoPoint>> _polygonRings(dynamic rawPolygon) {
-    return (rawPolygon as List<dynamic>? ?? const [])
+  List<List<GeoPoint>> _polygonRings(dynamic polygonCoordinates) {
+    return (polygonCoordinates as List<dynamic>? ?? const [])
         .whereType<List<dynamic>>()
         .map(
           (ring) => ring
               .whereType<List<dynamic>>()
               .map(GeoPoint.fromCoordinates)
-              .toList(),
+              .toList(growable: false),
         )
         .where((ring) => ring.isNotEmpty)
-        .toList();
+        .toList(growable: false);
   }
 }
 
@@ -367,19 +383,33 @@ class GateFeature {
     required this.id,
     required this.name,
     required this.reference,
+    required this.zoneId,
+    required this.zoneName,
+    required this.isActive,
     required this.point,
   });
 
   final String id;
   final String name;
   final String reference;
+  final String zoneId;
+  final String zoneName;
+  final bool isActive;
   final GeoPoint point;
 
   factory GateFeature.fromFeature(GeoJsonFeature feature) {
     return GateFeature(
-      id: '${feature.properties['ID'] ?? feature.id ?? ''}',
-      name: feature.properties['LOCALIZZAZ'] as String? ?? 'Unknown gate',
-      reference: (feature.properties['RIFERIMENT'] as String? ?? '').trim(),
+      id: '${feature.id ?? feature.properties['ID'] ?? ''}',
+      name: feature.properties['gateName'] as String? ??
+          feature.properties['LOCALIZZAZ'] as String? ??
+          'Unknown gate',
+      reference: (feature.properties['gateReference'] as String? ??
+              feature.properties['RIFERIMENT'] as String? ??
+              '')
+          .trim(),
+      zoneId: feature.properties['zoneId'] as String? ?? '',
+      zoneName: feature.properties['zoneName'] as String? ?? '',
+      isActive: feature.properties['statusIsActive'] as bool? ?? false,
       point: GeoPoint.fromCoordinates(
         feature.coordinates as List<dynamic>? ?? const [0, 0],
       ),

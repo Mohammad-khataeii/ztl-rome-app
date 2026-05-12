@@ -7,10 +7,10 @@ class ZtlRepository {
 
   final ZtlApi _api;
 
-  Future<List<ZtlZone>> loadZones() => _api.fetchZones();
+  Future<List<ZtlZone>> loadZones(String cityId) => _api.fetchZones(cityId);
 
-  Future<ZoneBundle> loadZoneBundle(String zoneId) async {
-    final zone = await _api.fetchZone(zoneId);
+  Future<ZoneBundle> loadZoneBundle(String cityId, String zoneId) async {
+    final zone = await _api.fetchZone(cityId, zoneId);
     GeoJsonFeatureCollection? area;
     GeoJsonFeatureCollection? gates;
 

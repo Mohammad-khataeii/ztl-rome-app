@@ -5,7 +5,7 @@ from datetime import date, datetime, time, timedelta
 from typing import Optional, Sequence, Tuple
 from zoneinfo import ZoneInfo
 
-from app.models import DateOverride, ScheduleRule, ZoneDefinition
+from app.models import DateOverride, ScheduleRule, SeasonBoundary, ZoneDefinition
 from app.services.holiday_calendar import ItalyHolidayCalendar
 
 
@@ -23,12 +23,11 @@ class ScheduleEngine:
         local_at = self._normalize_datetime(zone, at)
         override_status = self._evaluate_overrides(zone.overrides, local_at)
         if override_status is not None:
-            next_change = self._next_change(zone, local_at)
             return EvaluatedStatus(
                 is_active=override_status[0],
                 checked_at=local_at,
                 reason=override_status[1],
-                next_change_at=next_change,
+                next_change_at=self._next_change(zone, local_at),
                 confidence=zone.confidence,
             )
 
@@ -42,11 +41,10 @@ class ScheduleEngine:
                     confidence=zone.confidence,
                 )
 
-        reason = self._inactive_reason(zone, local_at)
         return EvaluatedStatus(
             is_active=False,
             checked_at=local_at,
-            reason=reason,
+            reason=self._inactive_reason(zone, local_at),
             next_change_at=self._next_change(zone, local_at),
             confidence=zone.confidence,
         )
@@ -56,6 +54,8 @@ class ScheduleEngine:
             start_date = self._candidate_start_date(rule, at)
             if start_date is None:
                 continue
+            if not self._season_allowed(rule, start_date):
+                return "Inactive this season."
             if rule.holiday_policy == "exclude" and ItalyHolidayCalendar.is_public_holiday(
                 start_date
             ):
@@ -63,7 +63,7 @@ class ScheduleEngine:
             if start_date.month in rule.excluded_months:
                 return "Inactive this month."
             if rule.active_months is not None and start_date.month not in rule.active_months:
-                return "Inactive this season."
+                return "Inactive this month."
         return "Outside scheduled hours."
 
     def _candidate_start_date(self, rule: ScheduleRule, at: datetime) -> Optional[date]:
@@ -106,6 +106,8 @@ class ScheduleEngine:
         return False
 
     def _date_allowed(self, rule: ScheduleRule, start_date: date) -> bool:
+        if not self._season_allowed(rule, start_date):
+            return False
         if rule.active_months is not None and start_date.month not in rule.active_months:
             return False
         if start_date.month in rule.excluded_months:
@@ -113,6 +115,20 @@ class ScheduleEngine:
         if rule.holiday_policy == "exclude" and ItalyHolidayCalendar.is_public_holiday(start_date):
             return False
         return True
+
+    def _season_allowed(self, rule: ScheduleRule, start_date: date) -> bool:
+        if rule.season is None:
+            return True
+        year = start_date.year
+        season_start = self._season_boundary_date(year, rule.season.start)
+        season_end = self._season_boundary_date(year, rule.season.end)
+        return season_start <= start_date <= season_end
+
+    def _season_boundary_date(self, year: int, boundary: SeasonBoundary) -> date:
+        first_of_month = date(year, boundary.month, 1)
+        offset = (boundary.weekday - first_of_month.weekday()) % 7
+        day = 1 + offset + (boundary.nth_week - 1) * 7
+        return date(year, boundary.month, day)
 
     def _evaluate_overrides(
         self,
@@ -125,10 +141,9 @@ class ScheduleEngine:
         return None
 
     def _next_change(self, zone: ZoneDefinition, at: datetime) -> Optional[datetime]:
-        checked_dates = set()
         boundaries = []
         start_date = at.date() - timedelta(days=1)
-        for day_offset in range(0, 370):
+        for day_offset in range(0, 400):
             current_date = start_date + timedelta(days=day_offset)
             for rule in zone.rules:
                 if current_date.weekday() not in rule.weekdays:
@@ -142,14 +157,12 @@ class ScheduleEngine:
                     rule.end_time,
                 )
                 boundaries.extend([start_dt, end_dt])
-            checked_dates.add(current_date)
-        boundaries = sorted({boundary for boundary in boundaries if boundary > at})
-        for boundary in boundaries:
+        for boundary in sorted({boundary for boundary in boundaries if boundary > at}):
             before = boundary - timedelta(seconds=1)
-            if self._is_active_without_next(
+            if self._is_active_without_next(zone, before) != self._is_active_without_next(
                 zone,
-                before,
-            ) != self._is_active_without_next(zone, boundary):
+                boundary,
+            ):
                 return boundary
         return None
 

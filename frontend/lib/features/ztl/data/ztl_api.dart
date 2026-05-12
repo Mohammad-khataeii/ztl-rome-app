@@ -6,8 +6,8 @@ class ZtlApi {
 
   final ApiClient _client;
 
-  Future<List<ZtlZone>> fetchZones() async {
-    final payload = await _client.getObject('/api/ztl/zones');
+  Future<List<ZtlZone>> fetchZones(String cityId) async {
+    final payload = await _client.getObject('/api/cities/$cityId/ztl/zones');
     final zones = payload['zones'] as List<dynamic>? ?? const [];
     return zones
         .whereType<Map<String, dynamic>>()
@@ -15,8 +15,8 @@ class ZtlApi {
         .toList();
   }
 
-  Future<ZtlZone> fetchZone(String zoneId) async {
-    final payload = await _client.getObject('/api/ztl/zones/$zoneId');
+  Future<ZtlZone> fetchZone(String cityId, String zoneId) async {
+    final payload = await _client.getObject('/api/cities/$cityId/ztl/zones/$zoneId');
     return ZtlZone.fromJson(payload);
   }
 

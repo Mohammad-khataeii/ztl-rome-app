@@ -1,0 +1,342 @@
+{
+  "zones": [
+    {
+      "id": "florence-sector-a",
+      "zone_id": "florence-sector-a",
+      "city_id": "florence",
+      "name": "Florence ZTL Sector A",
+      "city": "Florence",
+      "type": "sector",
+      "timezone": "Europe/Rome",
+      "human_readable_it": "Settore A: lun-ven 07:30-20:00, sab 07:30-16:00.",
+      "human_readable_en": "Sector A: Mon-Fri 07:30-20:00, Sat 07:30-16:00.",
+      "rules": [
+        {
+          "id": "weekday",
+          "label_it": "Lun-ven 07:30-20:00",
+          "label_en": "Mon-Fri 07:30-20:00",
+          "weekdays": [0, 1, 2, 3, 4],
+          "start_time": "07:30:00",
+          "end_time": "20:00:00",
+          "holiday_policy": "exclude",
+          "source_titles": ["Florence ZTL"]
+        },
+        {
+          "id": "saturday",
+          "label_it": "Sab 07:30-16:00",
+          "label_en": "Sat 07:30-16:00",
+          "weekdays": [5],
+          "start_time": "07:30:00",
+          "end_time": "16:00:00",
+          "holiday_policy": "exclude",
+          "source_titles": ["Florence ZTL"]
+        }
+      ],
+      "exclusions": ["Italian public holidays."],
+      "restrictions": {
+        "vehicle_classes": ["veicoli non autorizzati"],
+        "known_exemptions": ["Check Servizi alla Strada and Comune di Firenze for permits and exceptions."],
+        "disabled_permit_note": "Check Comune di Firenze rules for disability permits.",
+        "electric_vehicle_note": "Check official Firenze services for category-specific access rules.",
+        "motorcycles_note": "Check official Firenze services for vehicle-category-specific rules."
+      },
+      "map_style": {
+        "fill_color_key": "florence_sector",
+        "stroke_color_key": "florence_sector_stroke",
+        "priority": 2,
+        "visible_by_default": true
+      },
+      "geometry": {
+        "geometry_source": "Official page recommends viewing the map, but verified repository geometry is not currently bundled.",
+        "last_verified": "2026-05-12",
+        "quality": "missing"
+      },
+      "sources": [
+        {
+          "title": "Florence ZTL",
+          "url": "https://mobilita.comune.firenze.it/muoversi/muoversi/ztl.html",
+          "publisher": "Comune di Firenze",
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
+        }
+      ],
+      "disclaimer": "Official rules may change. Check Comune di Firenze before entering."
+    },
+    {
+      "id": "florence-sector-b",
+      "zone_id": "florence-sector-b",
+      "city_id": "florence",
+      "name": "Florence ZTL Sector B",
+      "city": "Florence",
+      "type": "sector",
+      "timezone": "Europe/Rome",
+      "human_readable_it": "Settore B: lun-ven 07:30-20:00, sab 07:30-16:00.",
+      "human_readable_en": "Sector B: Mon-Fri 07:30-20:00, Sat 07:30-16:00.",
+      "rules": [
+        {
+          "id": "weekday",
+          "label_it": "Lun-ven 07:30-20:00",
+          "label_en": "Mon-Fri 07:30-20:00",
+          "weekdays": [0, 1, 2, 3, 4],
+          "start_time": "07:30:00",
+          "end_time": "20:00:00",
+          "holiday_policy": "exclude",
+          "source_titles": ["Florence ZTL"]
+        },
+        {
+          "id": "saturday",
+          "label_it": "Sab 07:30-16:00",
+          "label_en": "Sat 07:30-16:00",
+          "weekdays": [5],
+          "start_time": "07:30:00",
+          "end_time": "16:00:00",
+          "holiday_policy": "exclude",
+          "source_titles": ["Florence ZTL"]
+        }
+      ],
+      "exclusions": ["Italian public holidays."],
+      "restrictions": {
+        "vehicle_classes": ["veicoli non autorizzati"],
+        "known_exemptions": ["Check Servizi alla Strada and Comune di Firenze for permits and exceptions."],
+        "disabled_permit_note": "Check Comune di Firenze rules for disability permits.",
+        "electric_vehicle_note": "Check official Firenze services for category-specific access rules.",
+        "motorcycles_note": "Check official Firenze services for vehicle-category-specific rules."
+      },
+      "map_style": {
+        "fill_color_key": "florence_sector",
+        "stroke_color_key": "florence_sector_stroke",
+        "priority": 2,
+        "visible_by_default": true
+      },
+      "geometry": {
+        "geometry_source": "Official page recommends viewing the map, but verified repository geometry is not currently bundled.",
+        "last_verified": "2026-05-12",
+        "quality": "missing"
+      },
+      "sources": [
+        {
+          "title": "Florence ZTL",
+          "url": "https://mobilita.comune.firenze.it/muoversi/muoversi/ztl.html",
+          "publisher": "Comune di Firenze",
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
+        }
+      ],
+      "disclaimer": "Official rules may change. Check Comune di Firenze before entering."
+    },
+    {
+      "id": "florence-sector-o",
+      "zone_id": "florence-sector-o",
+      "city_id": "florence",
+      "name": "Florence ZTL Sector O",
+      "city": "Florence",
+      "type": "sector",
+      "timezone": "Europe/Rome",
+      "human_readable_it": "Settore O: lun-ven 07:30-20:00, sab 07:30-16:00.",
+      "human_readable_en": "Sector O: Mon-Fri 07:30-20:00, Sat 07:30-16:00.",
+      "rules": [
+        {
+          "id": "weekday",
+          "label_it": "Lun-ven 07:30-20:00",
+          "label_en": "Mon-Fri 07:30-20:00",
+          "weekdays": [0, 1, 2, 3, 4],
+          "start_time": "07:30:00",
+          "end_time": "20:00:00",
+          "holiday_policy": "exclude",
+          "source_titles": ["Florence ZTL"]
+        },
+        {
+          "id": "saturday",
+          "label_it": "Sab 07:30-16:00",
+          "label_en": "Sat 07:30-16:00",
+          "weekdays": [5],
+          "start_time": "07:30:00",
+          "end_time": "16:00:00",
+          "holiday_policy": "exclude",
+          "source_titles": ["Florence ZTL"]
+        }
+      ],
+      "exclusions": ["Italian public holidays."],
+      "restrictions": {
+        "vehicle_classes": ["veicoli non autorizzati"],
+        "known_exemptions": ["Check Servizi alla Strada and Comune di Firenze for permits and exceptions."],
+        "disabled_permit_note": "Check Comune di Firenze rules for disability permits.",
+        "electric_vehicle_note": "Check official Firenze services for category-specific access rules.",
+        "motorcycles_note": "Check official Firenze services for vehicle-category-specific rules."
+      },
+      "map_style": {
+        "fill_color_key": "florence_sector",
+        "stroke_color_key": "florence_sector_stroke",
+        "priority": 2,
+        "visible_by_default": true
+      },
+      "geometry": {
+        "geometry_source": "Official page recommends viewing the map, but verified repository geometry is not currently bundled.",
+        "last_verified": "2026-05-12",
+        "quality": "missing"
+      },
+      "sources": [
+        {
+          "title": "Florence ZTL",
+          "url": "https://mobilita.comune.firenze.it/muoversi/muoversi/ztl.html",
+          "publisher": "Comune di Firenze",
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
+        }
+      ],
+      "disclaimer": "Official rules may change. Check Comune di Firenze before entering."
+    },
+    {
+      "id": "florence-sector-f",
+      "zone_id": "florence-sector-f",
+      "city_id": "florence",
+      "name": "Florence ZTL Sector F",
+      "city": "Florence",
+      "type": "sector",
+      "timezone": "Europe/Rome",
+      "human_readable_it": "Settore F: coperto dalla ZTL notturna estiva.",
+      "human_readable_en": "Sector F: covered by the summer night ZTL.",
+      "rules": [],
+      "exclusions": [],
+      "restrictions": {
+        "vehicle_classes": ["veicoli non autorizzati"],
+        "known_exemptions": ["Check Servizi alla Strada and Comune di Firenze for permits and exceptions."],
+        "disabled_permit_note": "Check Comune di Firenze rules for disability permits.",
+        "electric_vehicle_note": "Check official Firenze services for category-specific access rules.",
+        "motorcycles_note": "Check official Firenze services for vehicle-category-specific rules."
+      },
+      "map_style": {
+        "fill_color_key": "florence_sector_night",
+        "stroke_color_key": "florence_sector_night_stroke",
+        "priority": 1,
+        "visible_by_default": true
+      },
+      "geometry": {
+        "geometry_source": "Official page recommends viewing the map, but verified repository geometry is not currently bundled.",
+        "last_verified": "2026-05-12",
+        "quality": "missing"
+      },
+      "sources": [
+        {
+          "title": "Florence ZTL",
+          "url": "https://mobilita.comune.firenze.it/muoversi/muoversi/ztl.html",
+          "publisher": "Comune di Firenze",
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
+        }
+      ],
+      "disclaimer": "Official rules may change. Check Comune di Firenze before entering."
+    },
+    {
+      "id": "florence-sector-g",
+      "zone_id": "florence-sector-g",
+      "city_id": "florence",
+      "name": "Florence ZTL Sector G",
+      "city": "Florence",
+      "type": "sector",
+      "timezone": "Europe/Rome",
+      "human_readable_it": "Settore G: coperto dalla ZTL notturna estiva.",
+      "human_readable_en": "Sector G: covered by the summer night ZTL.",
+      "rules": [],
+      "exclusions": [],
+      "restrictions": {
+        "vehicle_classes": ["veicoli non autorizzati"],
+        "known_exemptions": ["Check Servizi alla Strada and Comune di Firenze for permits and exceptions."],
+        "disabled_permit_note": "Check Comune di Firenze rules for disability permits.",
+        "electric_vehicle_note": "Check official Firenze services for category-specific access rules.",
+        "motorcycles_note": "Check official Firenze services for vehicle-category-specific rules."
+      },
+      "map_style": {
+        "fill_color_key": "florence_sector_night",
+        "stroke_color_key": "florence_sector_night_stroke",
+        "priority": 1,
+        "visible_by_default": true
+      },
+      "geometry": {
+        "geometry_source": "Official page recommends viewing the map, but verified repository geometry is not currently bundled.",
+        "last_verified": "2026-05-12",
+        "quality": "missing"
+      },
+      "sources": [
+        {
+          "title": "Florence ZTL",
+          "url": "https://mobilita.comune.firenze.it/muoversi/muoversi/ztl.html",
+          "publisher": "Comune di Firenze",
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
+        }
+      ],
+      "disclaimer": "Official rules may change. Check Comune di Firenze before entering."
+    },
+    {
+      "id": "florence-summer-night-ztl",
+      "zone_id": "florence-summer-night-ztl",
+      "city_id": "florence",
+      "name": "Florence summer night ZTL",
+      "city": "Florence",
+      "type": "nighttime",
+      "timezone": "Europe/Rome",
+      "human_readable_it": "Dal primo giovedì di aprile alla prima domenica di ottobre: gio-sab 23:00-03:00.",
+      "human_readable_en": "From the first Thursday of April to the first Sunday of October: Thu-Sat 23:00-03:00.",
+      "rules": [
+        {
+          "id": "summer-night",
+          "label_it": "Gio-sab 23:00-03:00 dalla prima settimana di aprile alla prima domenica di ottobre",
+          "label_en": "Thu-Sat 23:00-03:00 from the first week of April to the first Sunday of October",
+          "weekdays": [3, 4, 5],
+          "start_time": "23:00:00",
+          "end_time": "03:00:00",
+          "holiday_policy": "include",
+          "season": {
+            "start": {
+              "month": 4,
+              "nth_week": 1,
+              "weekday": 3
+            },
+            "end": {
+              "month": 10,
+              "nth_week": 1,
+              "weekday": 6
+            }
+          },
+          "source_titles": ["Florence ZTL"]
+        }
+      ],
+      "exclusions": [],
+      "restrictions": {
+        "vehicle_classes": ["veicoli non autorizzati"],
+        "known_exemptions": ["Check Servizi alla Strada and Comune di Firenze for permits and exceptions."],
+        "disabled_permit_note": "Check Comune di Firenze rules for disability permits.",
+        "electric_vehicle_note": "Check official Firenze services for category-specific access rules.",
+        "motorcycles_note": "Check official Firenze services for vehicle-category-specific rules."
+      },
+      "map_style": {
+        "fill_color_key": "florence_night",
+        "stroke_color_key": "florence_night_stroke",
+        "priority": 5,
+        "visible_by_default": true
+      },
+      "geometry": {
+        "geometry_source": "Official page recommends viewing the map, but verified repository geometry is not currently bundled.",
+        "last_verified": "2026-05-12",
+        "quality": "missing"
+      },
+      "sources": [
+        {
+          "title": "Florence ZTL",
+          "url": "https://mobilita.comune.firenze.it/muoversi/muoversi/ztl.html",
+          "publisher": "Comune di Firenze",
+          "last_verified": "2026-05-12",
+          "confidence": "official",
+          "warning_text": "Official rules may change."
+        }
+      ],
+      "disclaimer": "Official rules may change. Check Comune di Firenze before entering."
+    }
+  ]
+}

@@ -12,6 +12,7 @@ class ApiClient {
 
   final String baseUrl;
   final http.Client _client;
+  static const _timeout = Duration(seconds: 10);
 
   Future<Map<String, dynamic>> getObject(String path) async {
     final jsonValue = await _getJson(path);
@@ -34,19 +35,19 @@ class ApiClient {
 
     late http.Response response;
     try {
-      response = await _client.get(uri);
+      response = await _client.get(uri).timeout(_timeout);
     } catch (error) {
       throw AppError(
-        message: 'Couldn’t reach the Rome ZTL service.',
-        debugDetails: error.toString(),
+        message: 'Couldn’t reach the ZTL service.',
+        debugDetails: 'GET $uri failed: $error',
       );
     }
 
     if (response.statusCode >= 400) {
       final detail = _extractErrorDetail(response.body);
       throw AppError(
-        message: detail ?? 'The Rome ZTL service returned an error.',
-        debugDetails: 'HTTP ${response.statusCode} for $path',
+        message: detail ?? 'The ZTL service returned an error.',
+        debugDetails: 'HTTP ${response.statusCode} for $uri',
       );
     }
 
@@ -54,7 +55,7 @@ class ApiClient {
       return jsonDecode(response.body);
     } catch (error) {
       throw AppError(
-        message: 'The Rome ZTL service returned unreadable data.',
+        message: 'The ZTL service returned unreadable data.',
         debugDetails: error.toString(),
       );
     }

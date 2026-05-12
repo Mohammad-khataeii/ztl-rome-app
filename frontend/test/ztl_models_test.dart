@@ -1,82 +1,194 @@
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:ztl_rome/features/city/data/city_models.dart';
 import 'package:ztl_rome/features/ztl/data/ztl_models.dart';
+import 'package:ztl_rome/features/ztl_map/data/map_bundle_models.dart';
 
 void main() {
-  test('parses zone model with optional geometry', () {
+  test('parses city model', () {
+    final city = CityModel.fromJson({
+      'id': 'rome',
+      'name': 'Rome',
+      'country': 'Italy',
+      'timezone': 'Europe/Rome',
+      'center': {'latitude': 41.9028, 'longitude': 12.4964},
+      'defaultZoom': 12,
+      'enabled': true,
+      'supportedStatus': 'partial',
+      'sourceSummary': 'Roma Mobilita official pages',
+      'lastVerified': '2026-05-12',
+      'geometryStatus': {
+        'hasAnyGeometry': true,
+        'missingGeometryReason': 'Only one Rome zone has geometry.',
+      },
+    });
+
+    expect(city.id, 'rome');
+    expect(city.hasAnyGeometry, isTrue);
+    expect(city.centerLatitude, 41.9028);
+  });
+
+  test('parses zone model with optional geometry metadata', () {
     final zone = ZtlZone.fromJson({
-      'id': 'tridente-a1',
-      'name': 'ZTL Tridente A1',
-      'city': 'Roma',
-      'type': 'daytime',
+      'id': 'milan-area-c',
+      'zoneId': 'milan-area-c',
+      'cityId': 'milan',
+      'name': 'Area C',
+      'city': 'Milan',
+      'type': 'paid_access',
       'timezone': 'Europe/Rome',
       'currentStatus': {
-        'isActive': false,
-        'checkedAt': '2026-05-12T10:00:00+02:00',
-        'reason': 'Outside scheduled hours.',
-        'nextChangeAt': '2026-05-13T06:30:00+02:00',
+        'isActive': true,
+        'checkedAt': '2026-05-12T08:00:00+02:00',
+        'reason': 'Mon-Fri 07:30-19:30, excluding holidays.',
+        'nextChangeAt': '2026-05-12T19:30:00+02:00',
         'confidence': 'official',
       },
       'schedule': {
-        'humanReadableIt': 'Lun-ven 06:30-19:00',
-        'humanReadableEn': 'Mon-Fri 06:30-19:00',
+        'humanReadableIt': 'Lun-ven 07:30-19:30',
+        'humanReadableEn': 'Mon-Fri 07:30-19:30',
         'rules': [],
         'exclusions': ['Italian public holidays.'],
       },
       'restrictions': {
-        'vehicleClasses': ['automobili', 'motocicli'],
-        'knownExemptions': ['Taxi'],
-        'disabledPermitNote': 'Disabled permit note',
-        'electricVehicleNote': 'EV note',
-        'motorcyclesCiclomotoriNote': 'Moto note',
+        'vehicleClasses': ['cars'],
+        'knownExemptions': ['Official exemptions apply'],
+        'disabledPermitNote': 'Check Comune di Milano guidance.',
+        'electricVehicleNote': 'Vehicle eligibility depends on official rules.',
+        'motorcyclesCiclomotoriNote': 'Check official Milano access rules.',
+      },
+      'mapStyle': {
+        'fillColorKey': 'paid_fill',
+        'strokeColorKey': 'paid_stroke',
+        'priority': 3,
+        'visibleByDefault': true,
       },
       'geometry': {
         'hasArea': false,
         'hasGates': false,
         'areaEndpoint': null,
         'gatesEndpoint': null,
+        'quality': 'missing',
         'bounds': null,
       },
       'sources': [
         {
-          'title': 'ZTL in Centro',
-          'url': 'https://romamobilita.it/muoversi-a-roma/ztl-in-centro/',
-          'publisher': 'Roma Servizi per la Mobilità',
+          'title': 'Area C',
+          'url': 'https://www.comune.milano.it/argomenti/mobilita/area-c',
+          'publisher': 'Comune di Milano',
           'lastVerified': '2026-05-12',
         },
       ],
-      'disclaimer': 'Official rules may change. Check Roma Mobilità before entering.',
+      'disclaimer': 'Official rules may change. Check the official city source before entering.',
     });
 
-    expect(zone.id, 'tridente-a1');
-    expect(zone.geometry.hasArea, isFalse);
-    expect(zone.sources.single.publisher, 'Roma Servizi per la Mobilità');
+    expect(zone.cityId, 'milan');
+    expect(zone.geometry.hasAnyGeometry, isFalse);
+    expect(zone.sources.single.publisher, 'Comune di Milano');
   });
 
-  test('parses multipolygon geojson without crashing', () {
-    final collection = GeoJsonFeatureCollection.fromJson({
-      'type': 'FeatureCollection',
-      'features': [
+  test('parses city map bundle and missing geometry zones', () {
+    final bundle = CityMapBundle.fromJson({
+      'city': {
+        'id': 'rome',
+        'name': 'Rome',
+        'country': 'Italy',
+        'timezone': 'Europe/Rome',
+        'center': {'latitude': 41.9028, 'longitude': 12.4964},
+        'defaultZoom': 12,
+        'enabled': true,
+        'supportedStatus': 'partial',
+        'sourceSummary': 'Roma Mobilita official pages',
+        'lastVerified': '2026-05-12',
+        'geometryStatus': {
+          'hasAnyGeometry': true,
+          'missingGeometryReason': 'Only one Rome zone has geometry.',
+        },
+      },
+      'zones': [
         {
-          'type': 'Feature',
+          'id': 'centro-storico-notturna',
+          'zoneId': 'centro-storico-notturna',
+          'cityId': 'rome',
+          'name': 'Centro Storico notturna',
+          'city': 'Rome',
+          'type': 'nighttime',
+          'timezone': 'Europe/Rome',
+          'currentStatus': {
+            'isActive': true,
+            'checkedAt': '2026-05-12T23:30:00+02:00',
+            'reason': 'Fri-Sat 23:00-03:00',
+            'nextChangeAt': '2026-05-13T03:00:00+02:00',
+            'confidence': 'official',
+          },
+          'schedule': {
+            'humanReadableIt': 'Ven-sab 23:00-03:00',
+            'humanReadableEn': 'Fri-Sat 23:00-03:00',
+            'rules': [],
+            'exclusions': [],
+          },
+          'restrictions': {
+            'vehicleClasses': ['cars'],
+            'knownExemptions': ['Taxi'],
+            'disabledPermitNote': 'Check official rules.',
+            'electricVehicleNote': 'Check official rules.',
+            'motorcyclesCiclomotoriNote': 'Check official rules.',
+          },
+          'mapStyle': {
+            'fillColorKey': 'night_fill',
+            'strokeColorKey': 'night_stroke',
+            'priority': 2,
+            'visibleByDefault': true,
+          },
           'geometry': {
-            'type': 'MultiPolygon',
-            'coordinates': [
-              [
+            'hasArea': true,
+            'hasGates': true,
+            'areaEndpoint': '/api/cities/rome/ztl/zones/centro-storico-notturna/area',
+            'gatesEndpoint': '/api/cities/rome/ztl/zones/centro-storico-notturna/gates',
+            'quality': 'official',
+            'bounds': {'west': 12.47, 'south': 41.89, 'east': 12.5, 'north': 41.91},
+          },
+          'sources': [],
+          'disclaimer': 'Official rules may change.',
+        },
+      ],
+      'areas': {
+        'type': 'FeatureCollection',
+        'features': [
+          {
+            'type': 'Feature',
+            'geometry': {
+              'type': 'Polygon',
+              'coordinates': [
                 [
-                  [12.4, 41.8],
-                  [12.5, 41.8],
-                  [12.5, 41.9],
-                  [12.4, 41.8],
+                  [12.47, 41.89],
+                  [12.5, 41.89],
+                  [12.5, 41.91],
+                  [12.47, 41.89],
                 ],
               ],
-            ],
+            },
+            'properties': {
+              'zoneId': 'centro-storico-notturna',
+            },
           },
-          'properties': {},
+        ],
+      },
+      'gates': {
+        'type': 'FeatureCollection',
+        'features': [],
+      },
+      'missingGeometryZones': [
+        {
+          'zoneId': 'tridente-a1',
+          'name': 'Tridente A1',
+          'reason': 'Official geometry is not yet available in the dataset.',
         },
       ],
     });
 
-    expect(collection.features.single.toRings(), isNotEmpty);
+    expect(bundle.zones, hasLength(1));
+    expect(bundle.areas.features, hasLength(1));
+    expect(bundle.missingGeometryZones.single.zoneId, 'tridente-a1');
   });
 }

@@ -56,7 +56,7 @@ class ZoneMapPanel extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
             child: Text(
-              'Map fallback. Official rules still come from Roma Mobilità.',
+              'Map preview only. Official rules still come from the official city source.',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: const Color(0xFF5D655F),
                   ),

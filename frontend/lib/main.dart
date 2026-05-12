@@ -14,7 +14,7 @@ void main() {
   }
 
   runApp(
-    ZtlRomeApp(
+    ZtlItalyApp(
       config: config,
       configurationError: configurationError,
     ),
