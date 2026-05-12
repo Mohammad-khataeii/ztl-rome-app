@@ -1,20 +1,35 @@
-# Flutter
+# Flutter / Dart
 frontend/.dart_tool/
 frontend/build/
-frontend/ios/Pods/
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/.packages
 frontend/pubspec.lock
 
-# Android/iOS
+# Flutter platform artifacts
+frontend/ios/Pods/
+frontend/ios/DerivedData/
+frontend/macos/Pods/
 frontend/android/.gradle/
 frontend/android/local.properties
 frontend/android/app/release/
-frontend/ios/DerivedData/
 
 # Python
 backend/.venv/
-backend/__pycache__/
-backend/*.pyc
+.venv/
+**/__pycache__/
+**/*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
-# OS
+# Env files
+.env
+.env.*
+!.env.example
+
+# IDE / OS
+.idea/
+.vscode/
 .DS_Store
 Thumbs.db
