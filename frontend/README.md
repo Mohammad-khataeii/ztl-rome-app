@@ -1,16 +1,27 @@
-# ztl_rome
+# ZTL Rome
 
-A new Flutter project.
+Flutter client for the Rome ZTL dashboard. It connects to the FastAPI backend in
+`../backend` and displays the Centro Storico night boundary, access gates, and a
+simple active-now status.
 
-## Getting Started
+## Run locally
 
-This project is a starting point for a Flutter application.
+Start the backend:
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+cd ../backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Start the Flutter app:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter pub get
+flutter run
+```
+
+The app defaults to `http://127.0.0.1:8000`. If you run Android emulator builds,
+use `http://10.0.2.2:8000` in the Backend URL field.
